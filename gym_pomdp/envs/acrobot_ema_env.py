@@ -57,6 +57,7 @@ class AcrobotEmaEnv(gym.Env):
 
     def _reset(self):
         self.state = self.np_random.uniform(low=-0.05, high=0.05, size=(4,))
+        self.observe = None
         return self._get_obs()
 
     def _step(self, action):
