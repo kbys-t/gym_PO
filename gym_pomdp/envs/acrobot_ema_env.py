@@ -79,16 +79,10 @@ class AcrobotEmaEnv(gym.Env):
         # reward design
         reward = 0.0
         done = False
-        if len(action) == 4:
-            if collision:
-                reward = -1.0
-            else:
-                reward -= action[1] * ( ( np.absolute(torque) / self.MAX_TORQUE - 0.5 ) + ( np.absolute(ns[1]) / self.MAX_ANG_2 - 0.5 ) )
-                reward += action[2] * ( - self.LINK_LENGTH_1 * np.cos(ns[0]) - self.LINK_LENGTH_2 * np.cos( ns[0] + ns[1] ) ) / ( self.LINK_LENGTH_1 + self.LINK_LENGTH_2 )
-                reward += action[3] * ( np.absolute(ns[2]) / self.MAX_VEL_1 - 0.5 ) * 2.0
+        if collision:
+            reward = -1.0
         else:
-            done = ( - self.LINK_LENGTH_1 * np.cos(ns[0]) - self.LINK_LENGTH_2 * np.cos( ns[0] + ns[1] ) ) / ( self.LINK_LENGTH_1 + self.LINK_LENGTH_2 ) > 0.5
-            reward = 0.0 if done else -1.0
+            reward += ( - self.LINK_LENGTH_1 * np.cos(ns[0]) - self.LINK_LENGTH_2 * np.cos( ns[0] + ns[1] ) ) / ( self.LINK_LENGTH_1 + self.LINK_LENGTH_2 )
 
         return (self._get_obs(), reward, done, {})
 
