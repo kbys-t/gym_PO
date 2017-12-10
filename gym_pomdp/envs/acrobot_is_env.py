@@ -12,7 +12,7 @@ from gym import spaces
 from gym.utils import seeding
 import numpy as np
 
-class AcrobotSwingEnv(gym.Env):
+class AcrobotIsEnv(gym.Env):
     metadata = {
         'render.modes': ['human', 'rgb_array'],
         'video.frames_per_second' : 50
